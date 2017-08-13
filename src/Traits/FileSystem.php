@@ -114,6 +114,9 @@ trait FileSystem
     protected function getThemesPath()
     {
         $themesPath = resource_path('Themes/');
+        if(!is_dir($themesPath)){
+            mkdir($themesPath,0777,true);
+        }
         return $themesPath;
     }
 
