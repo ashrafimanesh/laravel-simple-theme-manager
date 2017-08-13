@@ -1,0 +1,20 @@
+{
+    "name": "ashrafi/laravel-theme",
+    "description": "Laravel Theme Manager",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ramin",
+            "email": "ashrafimanesh@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ashrafi\\ThemeManager\\": "src"
+        }
+    }
+}
