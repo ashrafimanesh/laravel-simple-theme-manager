@@ -27,7 +27,7 @@ class ServiceProvider extends LaraServiceProvider
     public function boot()
     {
         $this->commands($this->commandList);
-        $this->loadViewsFrom('Themes/'.config('theme.default'),'ThemeView');
+        $this->loadViewsFrom(resource_path('views/Themes/'.config('theme.default')),'ThemeView');
     }
 
     /**
