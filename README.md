@@ -13,10 +13,7 @@ Begin by installing the package through Composer. This package will load with la
 composer require ashrafi/laravel-simple-theme-manager
 ```
 
-Publish config if you want change default theme name
-```php
-Ashrafi\ThemeManager\ServiceProvider::class,
-```
+Publish config.php if you want change default theme name
 
 ## Usage
 Use ThemeView namespace to load layouts or sections.
