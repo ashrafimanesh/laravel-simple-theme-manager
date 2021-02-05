@@ -15,21 +15,21 @@ abstract class AbstractThemeCreate extends FileSystemCommand implements CommandC
      * @var string
      */
     protected $signature = 'theme:create
-                            {--name= : Theme name}';
+                            {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'create theme in resources/Themes/{$name} directory. Example= theme:create {--name= : Theme name}';
+    protected $description = 'create theme in resources/views/Themes/{$name} directory. Example= theme:create {Theme name}';
 
     /**
      * @throws InvalidThemeCommandArgumentException
      */
     public function handle()
     {
-        $name=$this->option('name');
+        $name=$this->argument('name');
         if(!$name){
             throw (new InvalidThemeCommandArgumentException())->setCommand($this);
         }

@@ -18,8 +18,12 @@ class ThemeCreate extends AbstractThemeCreate
     {
         $this->validateTheme($name);
 
-        $this->save($name);
-
-        $this->info('Success action');
+        $result = $this->save($name);
+        if($result){
+            $this->info('Success action');
+        }
+        else{
+            $this->error('Error on create theme!');
+        }
     }
 }

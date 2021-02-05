@@ -46,9 +46,7 @@ trait FileSystem
         $dirs = scandir($themesPath);
         $themes=[];
         $call=function($themesPath,$themeName)use(&$themes){
-            $theme=new Theme();
-            $theme->name=$themeName;
-            $themes[]=$theme;
+            $themes[]=new Theme($themeName);
         };
 
         $this->analyseThemes($call);
@@ -66,25 +64,6 @@ trait FileSystem
         return false;
     }
 
-    public function setDefault($name){
-        $result=$this->checkExist($name);
-        if(!$result){
-            throw (new InvalidThemeCommandArgumentException('Theme '.$name.' don\'t exist'))->setCommand($this);
-        }
-
-        $filename = config_path('theme.php');
-        if(file_exists($filename)){
-            $this->updateConfig($name, $filename);
-        }
-        else{
-            $content=file_get_contents(__DIR__.'/../config.stub');
-            file_put_contents($filename,str_replace('{{default}}',$name,$content));
-            chmod($filename,0775);
-        }
-
-        return true;
-    }
-
     /**
      * @param $name
      * @throws InvalidThemeCommandArgumentException
@@ -99,13 +78,13 @@ trait FileSystem
 
     /**
      * @param $name
-     * @param $resource_path
+     * @return bool
      */
     public function save($name)
     {
         $resource_path=$this->getResourcePath($name);
         //create directory in resources/Themes/{$name}
-        mkdir($resource_path, 0777, true);
+        return mkdir($resource_path, 0777, true);
     }
 
     /**
@@ -136,9 +115,7 @@ trait FileSystem
             return $theme;
         }
 
-        $theme=new Theme();
-        $theme->name=$data['default'];
-        return $theme;
+        return new Theme($data['default']);
     }
 
     protected function analyseThemes(callable $call){
@@ -151,20 +128,4 @@ trait FileSystem
         }
     }
 
-    /**
-     * @param $name
-     * @param $filename
-     */
-    protected function updateConfig($name, $filename)
-    {
-        $t = @include($filename);
-        $t['default'] = $name;
-        $data = var_export($t, true);
-        $c = <<<HT
-<?php
-return $data;
-HT;
-
-        file_put_contents($filename, $c);
-    }
 }

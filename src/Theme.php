@@ -12,4 +12,7 @@ namespace Ashrafi\ThemeManager;
 class Theme
 {
     public $name;
+    public function __contruct($name){
+        $this->name = $name;
+    }
 }

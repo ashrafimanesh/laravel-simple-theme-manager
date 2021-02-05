@@ -7,14 +7,19 @@ php:>=5.5.9
 
 Quick Installation
 ------------------
-Begin by installing the package through Composer.
+Begin by installing the package through Composer. This package will load with laravel and you don't need to add ServiceProvider.
 
-```
+```__
 composer require ashrafi/laravel-simple-theme-manager
 ```
 
-Add service provider to config/app.php providers list
-
+Publish config if you want change default theme name
 ```php
 Ashrafi\ThemeManager\ServiceProvider::class,
 ```
+
+## Usage
+Use ThemeView namespace to load layouts or sections.
+
+For example:
+@layouts('ThemeView::{layoutBladeName})

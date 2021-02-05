@@ -14,8 +14,8 @@ abstract class AbstractThemeImport extends FileSystemCommand implements CommandI
      *
      * @var string
      */
-    protected $signature = 'theme:import
-                            {--name= : Theme name}
+    protected $signature = 'theme:import 
+                            {name}
                             {--source= : Your theme zip file';
 
     /**
@@ -32,7 +32,7 @@ abstract class AbstractThemeImport extends FileSystemCommand implements CommandI
      */
     public function handle()
     {
-        $name=$this->option('name');
+        $name=$this->argument('name');
         if(!$name){
             throw (new InvalidThemeCommandArgumentException('Set --name option'))->setCommand($this);
         }
