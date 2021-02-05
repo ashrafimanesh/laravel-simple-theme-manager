@@ -23,5 +23,4 @@ interface StoreDriverInterFace
 
     function getDefault();
 
-    function setDefault($name);
 }

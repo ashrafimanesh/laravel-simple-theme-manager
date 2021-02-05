@@ -3,7 +3,6 @@
 namespace Ashrafi\ThemeManager;
 
 use Illuminate\Support\ServiceProvider as LaraServiceProvider;
-use Ashrafi\ThemeManager\Commands\ThemeActive;
 use Ashrafi\ThemeManager\Commands\ThemeCreate;
 use Ashrafi\ThemeManager\Commands\ThemeDefault;
 use Ashrafi\ThemeManager\Commands\ThemeImport;
@@ -14,7 +13,6 @@ class ServiceProvider extends LaraServiceProvider
     protected $commandList=[
         ThemeCreate::class,
         ThemeImport::class,
-        ThemeActive::class,
         ThemeList::class,
         ThemeDefault::class,
     ];
@@ -27,7 +25,7 @@ class ServiceProvider extends LaraServiceProvider
     public function boot()
     {
         $this->commands($this->commandList);
-        $this->loadViewsFrom(resource_path('views/Themes/'.config('theme.default')),'ThemeView');
+        $this->loadViewsFrom(resource_path('views/Themes/'. $this->getDefaultThemeName()),'ThemeView');
     }
 
     /**
@@ -37,6 +35,16 @@ class ServiceProvider extends LaraServiceProvider
      */
     public function register()
     {
-        //
+        $this->publishes([
+            __DIR__.'/config/theme.php'=>config_path('theme.php')
+        ], 'config');
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDefaultThemeName()
+    {
+        return config('theme.default', 'default');
     }
 }
